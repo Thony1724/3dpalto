@@ -9,15 +9,31 @@ Opción rápida, con Python instalado:
     python3 -m http.server 8080
 
 Luego abre http://localhost:8080 en tu navegador (o en el celular, usando la
-IP de tu compu en la misma red Wi-Fi, para probar la cámara/RA).
+IP de tu compu en la misma red Wi-Fi, o publicado en GitHub Pages como ya
+hiciste, para probar la cámara/RA).
 
 ## Qué incluye
 - index.html / css/styles.css / js/script.js — el sitio (carta + visor).
 - img/braza-rem.png — foto del Pollo a la Brasa (con fondo transparente).
-- models/braza-rem.glb — modelo 3D real del plato, generado a partir de la
-  foto (una "tarjeta" con volumen real, texturizada con la imagen), listo
-  para verse en 3D y en RA con <model-viewer>.
-- herramientas/build-model.mjs — script para generar el .glb de nuevos platos.
+- models/braza-rem.glb — modelo 3D del plato con volumen real: un disco de
+  plato, dos lóbulos de pollo con vetas de carbón, ~16 papas apiladas,
+  lechuga/tomate/cebolla/zanahoria y el vasito de salsa, cada uno como pieza
+  3D independiente y coloreada según la foto real — no una imagen plana.
+- herramientas/build-model.mjs — script para generar el .glb de nuevos platos
+  (ver herramientas/README.md).
+
+## Cambios de esta versión
+- El modelo 3D ya no es una "tarjeta con la foto pegada": ahora cada
+  ingrediente es una forma 3D real, así que al girarlo en el visor se ve el
+  volumen del plato desde cualquier ángulo (antes se veía plano de canto).
+- Se corrigió un bug donde, en celular, el visor podía quedar "invisible pero
+  activo" y bloquear los botones del resto de la página (el botón de cerrar
+  podía quedar tapado por el notch/barra del celular). Ahora:
+  - El botón de cerrar respeta el área segura del celular (notch/gestos).
+  - Se agregó un botón adicional "Cerrar visor", siempre visible, abajo del
+    todo.
+  - Si el modelo tarda más de 12 segundos en cargar (o falla), aparece un
+    aviso con botón de cerrar en vez de quedar girando para siempre.
 
 ## Cómo funciona el visor 3D / RA
 - Se usa el componente <model-viewer> de Google (se carga por CDN).

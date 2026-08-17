@@ -25,12 +25,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const modal        = document.getElementById('viewerModal');
   const backdrop      = document.getElementById('viewerBackdrop');
   const closeBtn       = document.getElementById('viewerClose');
+  const closeBtnText     = document.getElementById('viewerCloseText');
   const modelViewer     = document.getElementById('modelViewer');
   const viewerTitle      = document.getElementById('viewerTitle');
   const viewerHint        = document.getElementById('viewerHint');
+  const mvError             = document.getElementById('mvError');
+  const mvErrorClose          = document.getElementById('mvErrorClose');
   const openTriggers        = document.querySelectorAll('[data-open-viewer]');
 
   const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  let loadTimeout = null;
 
   function updateHint(){
     if (isMobile) {
@@ -45,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const model  = trigger.dataset.model;
     const poster = trigger.dataset.poster;
 
+    mvError.hidden = true;
     viewerTitle.textContent = name;
     modelViewer.setAttribute('alt', name + ' en 3D');
     if (poster) modelViewer.setAttribute('poster', poster);
@@ -57,20 +62,42 @@ document.addEventListener('DOMContentLoaded', () => {
     modal.classList.add('is-open');
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
     closeBtn.focus();
+
+    // Si el modelo tarda demasiado (red lenta, ruta rota, etc.) avisamos
+    // en vez de dejar el spinner girando para siempre.
+    clearTimeout(loadTimeout);
+    loadTimeout = setTimeout(() => {
+      mvError.hidden = false;
+    }, 12000);
   }
 
   function closeViewer(){
     modal.classList.remove('is-open');
     modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
+    clearTimeout(loadTimeout);
   }
 
   openTriggers.forEach(btn => btn.addEventListener('click', () => openViewer(btn)));
   closeBtn.addEventListener('click', closeViewer);
+  closeBtnText.addEventListener('click', closeViewer);
+  mvErrorClose.addEventListener('click', closeViewer);
   backdrop.addEventListener('click', closeViewer);
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal.classList.contains('is-open')) closeViewer();
+  });
+
+  // Red de seguridad: si por algún motivo el modal quedara "abierto" sin la
+  // clase is-open (o viceversa), nunca dejamos el scroll del body bloqueado
+  // más que mientras el modal esté realmente visible.
+  window.addEventListener('pageshow', () => {
+    if (!modal.classList.contains('is-open')) {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    }
   });
 
   /* Feedback mientras la sesión de RA está activa (cámara encendida) */
@@ -84,5 +111,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* Si el dispositivo no soporta RA, model-viewer oculta el botón "ar-button"
      automáticamente; ajustamos igual el texto de ayuda por si acaso. */
-  modelViewer.addEventListener('load', () => updateHint());
+  modelViewer.addEventListener('load', () => {
+    clearTimeout(loadTimeout);
+    mvError.hidden = true;
+    updateHint();
+  });
+
+  modelViewer.addEventListener('error', () => {
+    clearTimeout(loadTimeout);
+    mvError.hidden = false;
+  });
 });
