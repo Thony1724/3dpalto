@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Braza — La Carta en 3D</title>
+<meta name="description" content="Braza. Mira cada plato en 3D y colócalo en tu mesa con Realidad Aumentada antes de pedirlo.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/styles.css">
+
+<!-- model-viewer: componente web de Google para ver modelos 3D/GLB y lanzar AR (Scene Viewer en Android, Quick Look en iOS con USDZ, WebXR en Chrome Android) -->
+<script type="module" src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <span class="brand-mark">B</span>
+      <span class="brand-word">Braza</span>
+    </a>
+    <nav class="nav">
+      <a href="#carta">La carta</a>
+      <a href="#como-funciona">Cómo verlo en 3D</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Carbón, tiempo y fuego</p>
+        <h1>Antes de pedirlo,<br><em>gíralo en tu mesa.</em></h1>
+        <p class="lede">Cada plato de la brasa lo puedes ver en 3D real y, desde el celular, colocarlo sobre tu propia mesa con la cámara — tamaño real, humo incluido.</p>
+        <div class="hero-actions">
+          <a href="#carta" class="btn btn-primary">Ver la carta</a>
+          <button class="btn btn-ghost" data-open-viewer
+            data-name="Pollo a la Brasa"
+            data-model="models/braza-rem.glb"
+            data-poster="img/braza-rem.png">
+            <svg class="icon-rotate" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 12a8 8 0 1 1-2.6-5.9"/><path d="M20 4v5h-5"/></svg>
+            Probar el visor 3D
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="ember-glow" aria-hidden="true"></div>
+        <figure class="plate-figure">
+          <img src="img/braza-rem.png" alt="Pollo a la brasa con papas fritas, ensalada fresca y salsa de la casa" width="558" height="447">
+          <figcaption>
+            <button class="pill-3d" data-open-viewer
+              data-name="Pollo a la Brasa"
+              data-model="models/braza-rem.glb"
+              data-poster="img/braza-rem.png">
+              <span class="dot"></span> Ver en 3D / RA
+            </button>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- CÓMO FUNCIONA -->
+  <section id="como-funciona" class="how">
+    <div class="wrap how-grid">
+      <div class="how-step">
+        <span class="how-index">En la mesa</span>
+        <h3>Toca «Ver en 3D»</h3>
+        <p>En cualquier plato con la marca <strong>3D</strong> se abre un visor donde lo giras, acercas y observas desde cualquier ángulo.</p>
+      </div>
+      <div class="how-step">
+        <span class="how-index">En el celular</span>
+        <h3>Activa la cámara</h3>
+        <p>El botón «Ver en tu mesa» pide permiso de cámara y coloca el plato en Realidad Aumentada, a su tamaño real, sobre tu mesa.</p>
+      </div>
+      <div class="how-step">
+        <span class="how-index">Antes de pedir</span>
+        <h3>Decide con los ojos</h3>
+        <p>Nada de fotos planas: ves el volumen, la porción y el color real de la brasa antes de que llegue el mesero.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARTA -->
+  <section id="carta" class="menu">
+    <div class="wrap">
+      <div class="menu-heading">
+        <p class="eyebrow">La carta</p>
+        <h2>Lo que sale de la brasa</h2>
+      </div>
+
+      <div class="tabs" role="tablist" aria-label="Categorías de la carta">
+        <button class="tab is-active" role="tab" aria-selected="true" data-cat="brasas">Brasas</button>
+        <button class="tab" role="tab" aria-selected="false" data-cat="acompañamientos">Acompañamientos</button>
+        <button class="tab" role="tab" aria-selected="false" data-cat="frescos">Frescos</button>
+      </div>
+
+      <div class="menu-grid" id="menuGrid">
+
+        <!-- Plato con 3D/RA real y funcional -->
+        <article class="dish-card is-3d" data-cat="brasas">
+          <div class="dish-media">
+            <img src="img/braza-rem.png" alt="Pollo a la brasa entero con papas fritas, ensalada y salsa" loading="lazy">
+            <span class="badge-3d">3D</span>
+          </div>
+          <div class="dish-body">
+            <div class="dish-title-row">
+              <h3>Pollo a la Brasa</h3>
+              <span class="price">S/ 39</span>
+            </div>
+            <p>Medio pollo dorado a fuego de carbón, papas fritas gruesas, ensalada fresca de tomate, cebolla morada y zanahoria, y salsa de la casa.</p>
+            <button class="btn btn-outline btn-block" data-open-viewer
+              data-name="Pollo a la Brasa"
+              data-model="models/braza-rem.glb"
+              data-poster="img/braza-rem.png">
+              <svg class="icon-rotate" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 12a8 8 0 1 1-2.6-5.9"/><path d="M20 4v5h-5"/></svg>
+              Ver en 3D / RA
+            </button>
+          </div>
+        </article>
+
+        <!-- Placeholders para el resto de la carta (misma estructura, listos para su propia foto + modelo) -->
+        <article class="dish-card is-soon" data-cat="brasas">
+          <div class="dish-media dish-media-soon">
+            <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 2c2 3-1 4-1 6a3 3 0 0 0 6 0c0-3-2-4-2-7 4 2 6 6 6 10a9 9 0 1 1-18 0c0-4 2-7 5-9 0 2-1 3 1 5 1 1 2 0 2-1s-1-2-1-4Z"/></svg>
+          </div>
+          <div class="dish-body">
+            <div class="dish-title-row">
+              <h3>Anticuchos de Res</h3>
+              <span class="price">S/ 32</span>
+            </div>
+            <p>Corazón marinado veinticuatro horas, papa dorada y choclo. Modelo 3D próximamente.</p>
+            <span class="soon-tag">Próximamente en 3D</span>
+          </div>
+        </article>
+
+        <article class="dish-card is-soon" data-cat="acompañamientos">
+          <div class="dish-media dish-media-soon">
+            <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4 12h16M4 12a8 8 0 0 0 16 0M4 12a8 8 0 0 1 16 0"/></svg>
+          </div>
+          <div class="dish-body">
+            <div class="dish-title-row">
+              <h3>Papas a la Brasa</h3>
+              <span class="price">S/ 12</span>
+            </div>
+            <p>Corte grueso, doradas al punto, piel crocante. Modelo 3D próximamente.</p>
+            <span class="soon-tag">Próximamente en 3D</span>
+          </div>
+        </article>
+
+        <article class="dish-card is-soon" data-cat="frescos">
+          <div class="dish-media dish-media-soon">
+            <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 3v6M8 5l4 4 4-4M5 21c0-5 3-9 7-9s7 4 7 9"/></svg>
+          </div>
+          <div class="dish-body">
+            <div class="dish-title-row">
+              <h3>Ensalada de la Casa</h3>
+              <span class="price">S/ 10</span>
+            </div>
+            <p>Tomate, cebolla morada, zanahoria y lechuga fresca. Modelo 3D próximamente.</p>
+            <span class="soon-tag">Próximamente en 3D</span>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Braza — a fuego de carbón.</p>
+    </div>
+  </footer>
+</main>
+
+<!-- MODAL VISOR 3D / RA -->
+<div class="viewer-modal" id="viewerModal" aria-hidden="true">
+  <div class="viewer-panel" role="dialog" aria-modal="true" aria-labelledby="viewerTitle">
+    <header class="viewer-head">
+      <h3 id="viewerTitle">Plato en 3D</h3>
+      <button class="viewer-close" id="viewerClose" aria-label="Cerrar visor">✕</button>
+    </header>
+
+    <model-viewer
+      id="modelViewer"
+      class="mv"
+      camera-controls
+      touch-action="pan-y"
+      auto-rotate
+      auto-rotate-delay="1200"
+      rotation-per-second="18deg"
+      shadow-intensity="1.1"
+      shadow-softness="0.9"
+      exposure="1.05"
+      environment-image="neutral"
+      ar
+      ar-modes="webxr scene-viewer quick-look"
+      ar-scale="fixed"
+      ar-placement="table"
+      camera-orbit="0deg 65deg 105%"
+      min-camera-orbit="auto 30deg auto"
+      max-camera-orbit="auto 100deg auto"
+      interaction-prompt="when-focused"
+    >
+      <div class="mv-loading" slot="poster">
+        <div class="spinner" aria-hidden="true"></div>
+        <p>Preparando el plato…</p>
+      </div>
+      <button slot="ar-button" class="ar-cta" id="arButton">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 7l10-5 10 5-10 5-10-5Z"/><path d="M2 7v10l10 5 10-5V7"/><path d="M12 12v10"/></svg>
+        Ver en tu mesa (RA)
+      </button>
+    </model-viewer>
+
+    <p class="viewer-hint" id="viewerHint">Arrastra para girar el plato · pellizca para acercar.</p>
+  </div>
+  <div class="viewer-backdrop" id="viewerBackdrop"></div>
+</div>
+
+<script src="js/script.js"></script>
+</body>
+</html>
